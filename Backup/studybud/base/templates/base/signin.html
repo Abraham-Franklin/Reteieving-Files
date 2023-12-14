@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    {% load static %}
+    <style>
+        *{
+            margin: 0%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .background{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .left-background{
+            width: 65%;
+            height: 100%;
+            position: relative;
+            margin-right: 30px;
+        }
+        .left-background img{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .right-background{
+            width: 35%;
+            height: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .signup{
+            text-align: center;
+        }
+        .right-background div{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .input{
+            width: 100%;
+            height: 7vh;
+            border-radius: 7px;
+            margin-bottom: 2%;
+            font-size: 25px;
+        }
+        .input:focus{
+            outline: 2px solid blue;
+            border: 2px solid blue;
+        }
+        .submit{
+            color: white;
+            background-color: blue;
+            border: 2px solid blue;
+            border-radius: 6px;
+            width: 50%;
+            height: 7vh;
+            font-size: 30px;
+            font-family: serif;
+            font-weight: 700;
+        }
+        .already-user{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="left-background">
+            <img src="{% static 'images/uber01.jpg' %}" alt="">
+            <img src="{% static 'images/uber02.jpg' %}" alt="">
+            <img src="{% static 'images/uber03.jpg' %}" alt="">
+            <img src="{% static 'images/uber05.jpg' %}" alt="">
+            <img src="{% static 'images/uber07.jpeg' %}" alt="">
+        </div>
+        <div class="right-background">
+            <h1 class="signup">Signin</h1>
+            <br><br>
+            <form action="" method="post">
+                {% csrf_token %}
+            <div>
+                {{formText.as_p}}
+            </div>
+            <br><br>
+
+                <small class="already-user">Already have an account?</small>
+                <br><br><br>
+                <button type="submit" class="submit">submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

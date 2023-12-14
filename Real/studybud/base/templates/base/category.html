@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="search" name="search" id="search" placeholder="Search category">
+        <button>Search</button>
+    </form>
+    {% for data in datas %}
+    <small>@{{data.author_id}}</small>
+    <span><a href="{% url 'edit-post' data.id %}">Edit</a></span>
+    <span><a href="{% url 'delete-post' data.id %}">Delete</a></span>
+    <h3><a href="{% url 'readmore' data.id %}">{{data.topic}}</a></h3>
+    <img src="{{data.image.url}}" alt="image">
+    <p>{{data.content}}</p>
+    <small>{{data.created_at | timesince}}</small> <br><br>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Signup Page</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{forms.as_p}}
+       
+        <button type="submit">signup</button>
+    </form>
+    <br>
+    <h3>{{username}}</h3>
+    <h3>{{email}}</h3>
+    <h3>{{password}}</h3>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- 
+
+
+
+<div>
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+</div>
+<br>
+<div>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email">
+</div>
+<br>
+<div>
+    <label for="password">Username</label>
+    <input type="tepasswordt" name="password" id="password">
+</div>
+<br> -->

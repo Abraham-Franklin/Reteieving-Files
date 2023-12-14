@@ -1,0 +1,83 @@
+{% load static %}
+{% include 'nav.html' %}
+   <body>
+      
+      <!-- about section start -->
+      <div class="about_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="">
+                  {% comment %} <img src="{{ update.images_post.url }}" class="post-image"> {% endcomment %}
+                  <img src="{{update.images_post.url}}" class="post_image">
+                  {% comment %} <button type="submit" ><img src="{% static 'images/like-icon.png' %}"></button> {% endcomment %}
+                  <form method="post" class="like_icon" name="like">
+                     {% csrf_token %}
+                     {% if liked == True %}
+                     <button name="readmoreBtn" value="reaction" class="readmoreBtn"><img src="{% static 'images/red-heart-icon.png' %}"></button>
+                     {% else %}
+                     <button name="readmoreBtn" value="reaction" class="readmoreBtn"><img src="{% static 'images/like-icon.png' %}"></button>
+                     {% endif %}
+                  </form>
+                  <a href="{% url 'user-profile' update.user.id %}" class="post_text">Post By : {{update.user.username}}</a>
+                  <h1 class="most_text">{{update.topic}}</h1>
+                  <p class="lorem_text" name="body_summary">{{update.body}}</p>
+                  
+                  <div class="social_icon_main">
+                     <div class="social_icon">
+                        <ul>
+                           <li><a href="#"><img src="{% static 'images/fb-icon.png' %}"></a></li>
+                           <li><a href="#"><img src="{% static 'images/twitter-icon.png' %}"></a></li>
+                           <li><a href="#"><img src="{% static 'images/instagram-icon.png' %}"></a></li>
+                        </ul>
+                        <p>{{numberOfLikes}} likes</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="comments">
+               <h3>Comments</h3>
+               <hr>
+               {% for comment in comments %}
+               <div>
+                  {% if request.user == comment.user %}
+                  <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+                  {% endif %} <br>
+                  <i>{{comment.user}}  {{comment.created|timesince}} ago</i>
+                  <p>{{comment.comment_body}}</p>
+                  <hr>
+               </div>
+               {% endfor %}
+            </div>
+            <div class="comment_form">
+               <form action="" method="post">
+                  {% csrf_token %}
+                  <input type="text" name="comment_input" placeholder="Input your comments here...">
+                  <button name="readmoreBtn" value="comment">Comment</button>
+               </form>
+               <br>
+            </div>
+         </div>
+      </div>
+      <!-- copyright section start -->
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">Copyright 2020 All Right Reserved By.<a href="https://html.design"> Free  html Templates</a></p>
+         </div>
+      </div>
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <!-- javascript --> 
+      <script src="js/owl.carousel.js"></script>
+      <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+   </body>
+</html>
+
+

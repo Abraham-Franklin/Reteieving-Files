@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>View Post</h1>
+    {% for work in works %}
+    <small>@{{work.author_id}}</small>
+    <h3>{{work.topic}}</h3>
+    <img src="{{work.image.url}}" alt="image">{{work.image.images.url}}
+    <p>{{work.content}}</p>
+    <small>{{work.created_at | timesince}}</small> <br><br>
+    {% endfor %}
+    <form action="" method="get">
+        <input type="search" name="search" id="search">
+    </form>
+</body>
+</html>

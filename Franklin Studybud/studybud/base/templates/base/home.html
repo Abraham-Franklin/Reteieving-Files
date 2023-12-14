@@ -1,0 +1,47 @@
+{% load static %}
+{% include 'nav.html' %}
+
+{% comment %} <h1>HOME</h1> {% endcomment %}
+<header>
+    <nav class="navigation-bar">
+        <h1>LOGO</h1>
+        <nav>
+            <ul class="navigation-items">
+                <li><a href="">Home</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Services</a></li>
+                <li><a href="">Contact</a></li>
+                <li>
+                    <button>
+                        {% if request.user.is_authenticated %}
+                            <a href="status">Logout</a>
+                        {% else %}
+                            <a href="signin">Login</a>
+                        {% endif %}
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </nav>
+</header>
+<main>
+    <section class="first-section">
+        <div class="landing-page">
+            <p>Franklin's Vlog <br> <span>For Anime, Sport's, Entertainment and Fashion</span></p>
+            <br>
+            <p>We get you current and legit happenings going in in the world concerning Anime, Sport's, Entertainment and Fashion</p>
+            <br>
+            <button class="landing-page-get-started">Get Started</button>
+        </div>
+        <div class="image-slider">
+            <div class="hide-slide">
+                <div class="slide-border">
+                    <img class="image-slides image1" src="{% static 'images/luffy.jpg' %}" alt="">
+                    <img class="image-slides image2" src="{% static 'images/nvida.jpg' %}" alt="">
+                    <img class="image-slides image3" src="{% static 'images/setup02.jpg' %}" alt="">
+                    <img class="image-slides image4" src="{% static 'images/steph curry.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

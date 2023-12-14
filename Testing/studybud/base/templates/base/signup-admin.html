@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signup</title>
+    {% load static %}
+    <style>
+        *{
+            margin: 0%;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .background{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .left-background{
+            width: 65%;
+            height: 100%;
+            position: relative;
+            margin-right: 30px;
+        }
+        .left-background-img{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        .current{
+            transition-property: opacity;
+            transition-duration: 2s;
+            transition-timing-function: ease-in-out;
+
+            opacity: 1;
+            z-index: 5;
+        }
+        .right-background{
+            width: 35%;
+            height: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .signup{
+            text-align: center;
+        }
+        .right-background div{
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            width: 90%;
+            margin: 0 auto;
+        }
+        .input{
+            width: 100%;
+            height: 7vh;
+            border-radius: 7px;
+            margin-bottom: 1.5%;
+            font-size: 25px;
+        }
+        .input:focus{
+            outline: 2px solid blue;
+            border: 2px solid blue;
+        }
+        .submit{
+            color: white;
+            background-color: blue;
+            border: 2px solid blue;
+            border-radius: 6px;
+            width: 50%;
+            height: 7vh;
+            font-size: 30px;
+            font-family: serif;
+            font-weight: 700;
+        }
+        .already-user{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="left-background">
+            <img src="{% static 'images/uber01.jpg' %}" alt="" class="left-background-img current">
+            <img src="{% static 'images/uber02.jpg' %}" alt="" class="left-background-img">
+            <img src="{% static 'images/uber08.jpg' %}" alt="" class="left-background-img">
+            <img src="{% static 'images/uber05.jpg' %}" alt="" class="left-background-img">
+            <img src="{% static 'images/uber07.jpeg' %}" alt="" class="left-background-img">
+        </div>
+        <div class="right-background">
+            <h1 class="signup">Adminstration <br> Signup</h1>
+            <br><br>
+            <form action="" method="post">
+                {% csrf_token %}
+            <div>
+                {{admin_user.as_p}}
+            </div>
+            <br><br>
+
+                <small class="already-user"><a href="{% url 'signin-admin' %}">Already have an account?</a></small>
+                <br><br><br>
+                <button type="submit" class="submit">submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // let current = document.querySelector('.current')
+        let images = document.querySelectorAll('.left-background-img')
+        window.addEventListener('load', function(e){
+            setInterval(() => {
+                let current = document.querySelector('.current')
+                let sibling = current.nextElementSibling
+                if(sibling){
+                    current.classList.remove('current')
+                    sibling.classList.add('current')
+                    console.log(sibling);
+                }
+                else{
+                    current.classList.remove('current')
+                    images[0].classList.add('current')
+                }
+            }, 3000);
+        })
+    </script>
+</body>
+</html>
+<!-- if (sibling) {
+    current.classList.remove('current')
+    sibling.classList.add('current')
+} else {
+    element[0].classList.add('current')
+} -->
+
+{% comment %} let i = 2;
+            // if (i < images.length) {
+            //     setInterval(() => {
+            //         // images.forEach((element, index) => {
+            //         for (let index = 0; index < array.length; index++) {
+            //             const element = array[index];
+                            
+            //             }
+            //             if (sibling) {
+            //                setInterval(() => {
+            //                     current.classList.remove('current')
+            //                     current.nextElementSibling.classList.add('current')
+            //                }, 3000);
+            //             } else {
+            //                 element[0].classList.add('current')
+            //             }
+            //             index++
+            //         }
+            //         // });
+            //     }, 5000);
+            //     i++
+            // } {% endcomment %}

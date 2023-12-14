@@ -1,0 +1,7 @@
+{% comment %} {% extends 'head-tag.html' %} {% endcomment %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{post_form.as_p}}
+    <button>Submit</button>
+</form>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>download</title>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+        .image-post{
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+        .image-post img{
+            border: 2px solid;
+            width: 80rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Download</h1>
+    {% for img in imgs  %}
+    <div class="image-post">
+        <a href="{{img.image.url}}" download="{{img.image.url}}" target="_blank"><img src="{{img.image.url}}" alt="image"></a>
+    </div>
+    {% endfor %}
+</body>
+</html>

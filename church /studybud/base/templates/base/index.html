@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.15.4-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-6.4.0-web/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.0-dist/css/bootstrap.css' %}">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .navigation{
+            width: 100%;
+            height: 8vh;
+            /* background-color: blue; */
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border-bottom: 2px solid;
+        }
+        
+        .navigation img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        .sub-nav ol{
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+        }
+        
+        .sub-nav ol li:nth-child(2){
+            margin-left: 3rem;
+        }
+        
+        .sub-nav ol li a{
+            text-decoration: none;
+            color: black;
+        }
+        
+        .body{
+            width: 100%;
+            height: 85vh;
+            border: 2px solid;
+            position: relative;
+            background-color: rgba(0, 0, 255, 0.5);
+        }
+        
+        .image-slide{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+        }
+        
+        .images{
+            width: 100%;
+            height: 85vh;
+            opacity: 0;
+        }
+
+        .current{
+            opacity: 0;
+            transition-property: opacity;
+            transition-duration: 2s;
+            transition-timing-function: ease-in;
+            /* transition-delay: 2s; **/
+            opacity: 0.5;
+        }
+        .display-body{
+            z-index: 4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <img src="{% static 'images/logoconnec2.jpg' %}" alt="Logo">
+            <div class="sub-nav">
+                <ol>
+                    <li><a href="upload">Upload</a></li>
+                    <li><a href="download">Download</a></li>
+                </ol>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="body">
+            <div class="image-slide">
+                <img class="images image1 current" src="{% static 'images/tech3.jpg' %}" alt="">
+                <img class="images image2" src="{% static 'images/tech4.jpg' %}" alt="logo">
+                <img class="images image3" src="{% static 'images/tech5.jpeg' %}" alt="">
+                <img class="images image4" src="{% static 'images/tech6.jpg' %}" alt="">
+                <img class="images image5" src="{% static 'images/tech7.jpg' %}" alt="">
+            </div>
+            <div class="display-body">
+                <h1>Wireless Connect</h1>
+                <p>Transfer files  from your pc to Android <br> Or vice versa with <br> Connect</p>
+                <a href="upload" style="z-index: 6;">Upload</a>
+                <a href="download">Download</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let image_slide = document.querySelector(".image-slide")
+        let current = document.querySelector(".current")
+        let images = document.querySelectorAll(".images")
+        let next = current.nextElementSibling
+
+        window.addEventListener('DOMContentLoaded', function(e){
+            let i = 1;
+            setInterval(function(){
+                if (current.nextElementSibling){
+                    let current = document.querySelector(".current")
+                    let next = current.nextElementSibling
+                    current.classList.remove('current')
+                    next.classList.add('current')
+                    if()
+                }else{
+                    console.log("object");
+                }
+            }, 5000)
+        })
+    </script>
+    
+            {% comment %}  setTimeout(function(){
+                if(i < images.length){
+                    let current = document.querySelector(".current")
+                    let next = current.nextElementSibling
+                    current.classList.remove('current')
+                    next.classList.add('current')
+                    console.log(i);
+                }else{
+                    next = images[0]
+                    console.log("error occured");
+                }
+            }, 5000) {% endcomment %}
+</body>
+</html>

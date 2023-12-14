@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.navigation-bar{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid white;
+    align-items: center;
+    background-color: blue;
+    color: white;
+}
+.navigation-items{
+    display: flex;
+    justify-content: space-between;
+    width: 20rem;
+}
+.navigation-items li{
+    list-style-type: none;
+}
+
+.navigation-items li a{
+    text-decoration: none;
+    color: white;
+}
+
+.navigation-items li button{
+    border: none;
+    border: 2px solid blue;
+    border-radius: 8px;
+    background-color: blue;
+    height: 2rem;
+    width: 150%;
+    margin-top: -3.5rem;
+}
+
+.navigation-items li button a{
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.first-section{
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 90vh;
+}
+.landing-page{
+    text-align: center;
+    width: 35%;
+    height: 100%;
+    margin-top: 5rem;
+}
+
+.landing-page p:nth-child(1){
+    color: white;
+    font-size: 40px;
+    /* margin: 5rem auto; */
+}
+
+.landing-page p:nth-child(1) span{
+    color: white;
+    font-size: 30px;
+}
+
+.landing-page p:nth-child(3){
+    color: rgb(204, 199, 199);
+    font-size: 30px;
+}
+
+.landing-page-get-started{
+    border: none;
+    background-color: none;
+    border: 2px solid white;
+    border-radius: 8px;
+    padding: 0.5rem 1.6rem;
+}
+
+.image-slider{
+    width: 50%;
+    height: 100%;
+    border: 2px solid white;
+}
+
+.hide-slide{
+    width: 60%;
+    height: 60%;
+    border: 2px solid white;
+    margin: 5rem auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.slide-border{
+    /* width: 100%; */
+    height: 100%;
+    display: flex;
+    border: 2px solid red;
+    /* animation-name: image-slide;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+    animation-play-state: running; */
+}
+
+.image-slides{
+    /* width: 28.2rem;
+    height: 100%;
+    border-radius: 10px; */
+}
+/*
+@keyframes image-slide {
+    25%{
+        transform: translateX(0rem);
+    }
+    50%{
+        transform: translateX(-28.2rem);
+    }
+    75%{
+        transform: translateX(-56.4rem);
+    }
+    100%{
+        transform: translateX(-84.6rem);
+    }
+} */
+

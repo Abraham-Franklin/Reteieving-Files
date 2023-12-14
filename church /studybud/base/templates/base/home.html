@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.0-dist/css/bootstrap.css' %}">
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+        .navigation{
+            width: 100%;
+            height: 8%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border-bottom: 2px solid black;
+            padding: 0.3rem 0;
+        }
+        .logo{
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+        .navigation-menu{
+            width: 30%;
+        }
+        .navigation-menu ul{
+            list-style-type: none;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .navigation-menu ul li a{
+            text-decoration: none;
+            color: black;
+        }
+        .main-body{
+            width: 100%;
+            height: 85vh;
+            opacity: 0.3;
+            text-align: center;
+            align-content: center;
+            align-self: center;
+            border: 2px solid black;
+            background-image: url("{% static 'images/tech3.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-color: rgba(0, 0, 255, 0.35);**/
+
+            animation-name: background_image;
+            animation-duration: 25s;
+            animation-timing-function: ease-in;
+            animation-iteration-count: infinite;
+        }
+        @keyframes background_image{
+            0%{
+                opacity: 0.3;
+                transition-property: opacity;
+                transition-duration: 2s;
+                opacity: 1;
+            }
+            25%{
+                opacity: 0.3;
+                transition-property: opacity;
+                transition-duration: 2s;
+                opacity: 1;
+                background-image: url("{% static 'images/tech4.jpg' %}");
+            }
+            50%{
+                opacity: 0.3;
+                transition-property: opacity;
+                transition-duration: 2s;
+                opacity: 1;
+                background-image: url("{% static 'images/tech5.jpeg' %}");
+            }
+            75%{
+                opacity: 0.3;
+                transition-property: opacity;
+                transition-duration: 2s;
+                opacity: 1;
+                background-image: url("{% static 'images/tech6.jpg' %}");
+            }
+            100%{
+                opacity: 0.3;
+                transition-property: opacity;
+                transition-duration: 2s;
+                opacity: 1;
+                background-image: url("{% static 'images/tech7.jpg' %}");
+            }
+        }
+        .written-article{
+            margin-top: 5rem;
+        }
+        .written-article p:nth-child(1){
+            font-weight: 900;
+            font-size: 45px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .written-article p:nth-child(4){
+            font-weight: 900;
+            font-size: 35px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .written-article a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navigation">
+            <img src="{% static 'images/logoconnec2.jpg' %}" alt="LOGO" class="logo">
+            <nav class="navigation-menu">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'help' %}">Help</a></li>
+                    <li><a href="{% url 'upload' %}">Upload</a></li>
+                    <li><a href="{% url 'download' %}">Download</a></li>
+                </ul>
+            </nav>
+        </nav>
+    </header>
+    <main>
+        <section class="main-body">
+            {% comment %} <div class="image-slide">
+                <img class="images image1 current" src="{% static 'images/tech3.jpg' %}" alt="">
+                <img class="images image2" src="{% static 'images/tech4.jpg' %}" alt="logo">
+                <img class="images image3" src="{% static 'images/tech5.jpeg' %}" alt="">
+                <img class="images image4" src="{% static 'images/tech6.jpg' %}" alt="">
+                <img class="images image5" src="{% static 'images/tech7.jpg' %}" alt="">
+            </div> {% endcomment %}
+            <div class="written-article">
+                <p style="color: white;">Wireless Connect</p>
+                <br><br>
+                <p>Send and receive files from your Phones to your <br> pc or vice versa with wireess Connect</p>
+                <br><br><br>
+                <button class="btn btn-primary "><a class="text-light" href="{% url 'upload' %}">Upload</a></button>
+                <button class="btn btn-primary "><a class="text-light" href="{% url 'download' %}">Download</a></button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

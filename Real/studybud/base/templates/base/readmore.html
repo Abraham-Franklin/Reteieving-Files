@@ -1,0 +1,61 @@
+{% load static %}
+{% include 'nav.html' %}
+   <!-- about section start -->
+   <div class="about_section layout_padding">
+      <div class="container">
+         <div class="row">
+            <div class="">
+               {% comment %} <img src="{{ update.images_post.url }}" class="post-image"> {% endcomment %}
+               <img src="{{update.image.url}}" class="post_image">
+               {% comment %} <button type="submit" ><img src="{% static 'images/like-icon.png' %}"></button> {% endcomment %}
+               <form method="post" class="like_icon" name="like">
+                  {% csrf_token %}
+                  {% if liked == True %}
+                  <button name="readmoreBtn" value="reaction" class="readmoreBtn"><img src="{% static 'images/red-heart-icon.png' %}"></button>
+                  {% else %}
+                  <button name="readmoreBtn" value="reaction" class="readmoreBtn"><img src="{% static 'images/like-icon.png' %}"></button>
+                  {% endif %}
+               </form>
+               {% comment %} <a href="{% url 'user-profile' update.user.id %}" class="post_text">Post By : {{update.user.username}}</a> {% endcomment %}
+               <h1 class="most_text">{{update.topic}}</h1>
+               <p class="lorem_text" name="body_summary">{{update.content}}</p>
+               
+               <div class="social_icon_main">
+                  <div class="social_icon">
+                     <ul>
+                        <li><a href="#"><img src="{% static 'images/fb-icon.png' %}"></a></li>
+                        <li><a href="#"><img src="{% static 'images/twitter-icon.png' %}"></a></li>
+                        <li><a href="#"><img src="{% static 'images/instagram-icon.png' %}"></a></li>
+                     </ul>
+                     <p>{{numberOfLikes}} likes</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="comments">
+            <h3>Comments</h3>
+            <hr>
+            {% for comment in comments %}
+            <div>
+               {% if request.user == comment.user %}
+               <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+               {% endif %} <br>
+               <i>{{comment.user}}  {{comment.created|timesince}} ago</i>
+               <p>{{comment.comment}}</p>
+               <hr>
+            </div>
+            {% endfor %}
+         </div>
+         <div class="comment_form">
+            <form action="" method="post">
+               {% csrf_token %}
+               <input type="text" name="comment_input" placeholder="Input your comments here...">
+               <button name="readmoreBtn" value="comment">Comment</button>
+            </form>
+            <br>
+         </div>
+      </div>
+   </div>
+
+</body>
+</html>

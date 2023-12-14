@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tester</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <header class="navigation-parent">
+        <ul>
+            <li style="margin-top: 2.5rem;"><a href="#">Home</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Investments</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </header>
+    <div class="div-body">
+        {% block content %}
+        <main>
+            <p class="header-name">Online Banking</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="first_name"></label>
+                <input type="text" name="first_name" id="first_name">
+
+                <button type="submit">Submit</button>
+                <p>{{show}}</p>
+            </form>
+
+
+            <form action="" method="post">
+                {% csrf_token %}
+            
+                {{ form.as_p }}
+
+                <button type="submit">Submit</button>
+            </form>
+
+            
+
+        </main>
+        {% endblock %}
+        <footer>
+
+        </footer>
+    </div>
+</body>
+</html>

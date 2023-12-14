@@ -1,0 +1,11 @@
+{% load static %}
+<h1>STATUS</h1>
+<button><a href="{% url 'signup' %}">signup</a></button>
+<button><a href="{% url 'signin' %}">signin</a></button>
+
+<h1>ADMIN</h1>
+<button><a href="{% url 'signup-admin' %}">signup as an admin</a></button>
+<button><a href="{% url 'signin-admin' %}">signin as an admin</a></button>
+    {% comment %} <h1>STATUS</h1> {% endcomment %}
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+<body>
+    <h1>Phone & Specs</h1>
+    <div>
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Name</th>
+                    <th>Specs</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            {% for Phone in Phones %}
+            <tbody>
+                <tr>
+                    <td> {{Phone.brand}} </td>
+                    <td> {{Phone.name}} </td>
+                    <td> {{Phone.specs}} </td>
+                    <td> {{Phone.price}} </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        <br><br>
+        <form method="post">
+            {% csrf_token %}
+            {{ formText }}
+            <!-- <input type="text" class="inputTag" placeholder="Enter phone detail..."> -->
+            <button type="submit">submit</button>
+        </form>
+        
+    </div>
+</body>
+</html>
