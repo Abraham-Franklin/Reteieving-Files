@@ -1,0 +1,95 @@
+create a folder(website)
+install a virtual environment("pip install virtualenv")
+assign a name to the virtual environment for example-venv ("virtualenv venv")
+activate the virtual environment - for windows ("scripts\activate\venv)
+				  - for linux ("source venv/bin/activate")
+install django("pip install django")
+to see all django command("django-admin")
+create an app for example-sitepage ("django-admin startproject sitepage")
+test to see if you've been sucessful all this while - for windows ("python manage.py runserver")
+						      - for linux ("python3 manage.py runserver")
+put in your address in your browser ("http://127.0.0.1:8000/")
+
+open your folder(website) directory in your text editor preferrably visual studio code
+create an app for  example-members  - for windows ("python manage.py startapp members")
+		    		     - for linux ("python3 manage.py startapp members")
+go to your newly created app(members), locate your views.py file
+add ("from django.http import HttpResponse")
+still in the views.py file create a function and pass in an argument of request ("
+def myFunction(request):
+    return HttpResponse("My First Django Page")    
+")
+go to your newly created app(members), create a new file in the app directory called ("urls.py")
+in the newly created file(urls.py), type in ("
+from django.urls import path
+from . import views
+")
+still in urls.py, create a dictionary and assign it to a variable name called urlpatterns and put in the path to your views function ("
+urlpatterns = [
+    path('members/', views.myFunction, name = 'myFunction')
+]
+")
+now go to your app's folder(sitepackage), locate the urls.py file there and add include to our imports there ("from django.urls import path, include")
+add a new path to the urlpatterns dict. ("path('', include('members.urls')),") 
+
+
+refresh your browser and you should see ("My First Django Page") displayed on your screen
+
+
+create a folder in your app(members) called ("templates")
+create an html file and call it anything -for example(myFirst.html)
+make any design of your choice
+go to your project(sitepage), go your "settings.py" file, locate "INSTALLED_APPS"
+add the name of your app in quotes ("
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'members',
+]
+")
+
+go to your views.py in your app 
+you can choose to create a new function or use the initially created function
+remove the ("return HttpResponse("My First Django Page")")
+and replace with return render(HttpResponse, 'myfirst.html') -----("
+def myFunction(request):
+    return render(HttpResponse, 'myfirst.html')
+")
+
+OR
+
+go to your views.py in your app 
+you can choose to create a new function or use the initially created function
+import loader from django.template ("from django.template import loader")
+migrate - for windows ("python manage.py migrate")
+	- for linux ("python3 manage.py migrate")
+remove the ("return HttpResponse("My First Django Page")")
+and replace with ("
+def myFunction(request):
+    template = loader.get_template('myfirst.html')
+    return HttpResponse(template.render())
+")
+
+
+then refresh your browser and you should see your html designs displayed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+making specific migrations, you cal the app

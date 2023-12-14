@@ -1,0 +1,30 @@
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('base.urls')),
+]
+
+
+
+
+from django.urls import path
+from . import views
+
+app_name = 'base'
+
+urlpatterns = [
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('profile/<str:username>/', views.profile, name='profile'),
+    path('post/create/', views.create_edit_post, name='create_post'),
+    path('post/edit/<int:post_id>/', views.create_edit_post, name='edit_post'),
+    path('post/like/<int:post_id>/', views.like_post, name='like_post'),
+    path('user/follow/<str:username>/', views.follow_user, name='follow_user'),
+    path('post/<int:post_id>/', views.post_detail, name='post_detail'),
+    path('post/delete/<int:post_id>/', views.delete_post, name='delete_post'),
+    path('', views.home, name='home'),
+]
+

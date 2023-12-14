@@ -1,0 +1,125 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib import messages
+from .forms import UserRegistrationForm, UserLoginForm, PostForm
+from .models import UserProfile, Post, Like, Category
+from django.db.models import Count
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Registration successful.')
+            return redirect('base:profile', username=user.username)
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'base/register.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, 'Login successful.')
+            return redirect('base:profile', username=user.username)
+    else:
+        form = UserLoginForm()
+    return render(request, 'base/login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    messages.success(request, 'Logout successful.')
+    return redirect('base:login')
+
+@login_required
+def profile(request, username):
+    user = get_object_or_404(UserProfile, user__username=username)
+    user_posts = Post.objects.filter(author=user).order_by('-created_at')
+    liked_posts = user.liked_posts.all()
+    followers = user.followers.all()
+    following = user.following.all()
+    context = {
+        'user': user,
+        'user_posts': user_posts,
+        'liked_posts': liked_posts,
+        'followers': followers,
+        'following': following,
+    }
+    return render(request, 'base/profile.html', context)
+
+@login_required
+def create_edit_post(request, post_id=None):
+    if post_id:
+        post = get_object_or_404(Post, id=post_id)
+        if post.author.user != request.user:
+            messages.error(request, 'You do not have permission to edit this post.')
+            return redirect('base:profile', username=request.user.username)
+    else:
+        post = Post(author=request.user.userprofile)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Post saved successfully.')
+            return redirect('base:profile', username=request.user.username)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'base/create_edit_post.html', {'form': form})
+
+@login_required
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    user_profile = request.user.userprofile
+
+    if Like.objects.filter(user=user_profile, post=post).exists():
+        Like.objects.filter(user=user_profile, post=post).delete()
+    else:
+        Like.objects.create(user=user_profile, post=post)
+
+    return redirect('base:post_detail', post_id=post_id)
+
+@login_required
+def follow_user(request, username):
+    user_to_follow = get_object_or_404(UserProfile, user__username=username)
+    user_profile = request.user.userprofile
+
+    if user_to_follow != user_profile:
+        if user_profile in user_to_follow.followers.all():
+            user_to_follow.followers.remove(user_profile)
+        else:
+            user_to_follow.followers.add(user_profile)
+
+    return redirect('base:profile', username=username)
+
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    comments = post.comments.all()
+    liked = False
+
+    if request.user.is_authenticated:
+        liked = Like.objects.filter(user=request.user.userprofile, post=post).exists()
+
+    return render(request, 'base/post_detail.html', {'post': post, 'comments': comments, 'liked': liked})
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if post.author.user == request.user:
+        post.delete()
+        messages.success(request, 'Post deleted successfully.')
+    else:
+        messages.error(request, 'You do not have permission to delete this post.')
+
+    return redirect('base:profile', username=request.user.username)
+
+def home(request):
+    posts = Post.objects.all().annotate(like_count=Count('likes')).order_by('-like_count', '-created_at')[:10]
+    return render(request, 'base/home.html', {'posts': posts})
+

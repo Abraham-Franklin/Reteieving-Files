@@ -1,0 +1,183 @@
+locate your models.py file and - from django.db import models
+				- from django.contrib.auth.models import User
+create a class and passin a parameter of models.Model for example (SignupModel) - class SignupModel(models.Model):
+in the created class create columns for example(username) - username = models.CharField(max_length = 200)
+still in the created class, define a function (__str__) and pass in a parameter of self and return a value of self.(whatever you want to name the class as) - def __str__(self):
+          - 	return self.username
+
+go to your project folder and create a folder called forms.py
+in the forms.py file import forms - from django import forms
+in the same file also import the class you created in models.py - from .models import SignupModel
+create class for example(SignupField) and pass in a parameter forms.ModelForm - class SignupField(forms.ModelForm):
+in that class create another called Meta - class Meta:
+create a variable and assign the name of our models class - model = SignupModel
+create a variable and assign to '__all__' - fields = '__all__'
+go to your views.py files and import the forms - from .forms import SignupField
+
+
+
+
+
+
+The values() Method
+
+The values() method allows you to return each object as a Python dictionary, with the names and values as key/value pairs:
+"""
+from django.http import HttpResponse
+from .models import Member
+
+def testing(request):
+  mydata = Member.objects.all().values()
+  context = {
+    'mymembers': mydata,
+  }
+  return render(request, 'signin.html', context))
+"""  
+  
+  
+  
+  
+  Return Specific Columns
+
+The values_list() method allows you to return only the columns that you specify.
+"""
+from django.http import HttpResponse
+from .models import Member
+
+def testing(request):
+  mydata = Member.objects.values_list('firstname')
+  context = {
+    'mymembers': mydata,
+  }
+  return render(request, 'signin.html', context))
+  """
+  
+  
+  
+  
+  
+Return Specific Rows
+
+You can filter the search to only return specific rows/records, by using the filter() method.
+"""
+from django.http import HttpResponse
+from .models import Member
+
+def testing(request):
+  mydata = Member.objects.filter(firstname='Emil').values()
+  context = {
+    'mymembers': mydata,
+  }
+  return render(request, 'signin.html', context))
+"""
+
+
+
+
+
+QuerySet Filter
+
+The filter() method is used to filter your search, and allows you to return only the rows that matches the search term.
+
+As we learned in the previous chapter, we can filter on field names like this:
+"""
+mydata = Member.objects.filter(firstname='Emil').values()
+
+
+# In SQL, the above statement would be written like this:
+# SELECT * FROM members WHERE firstname = 'Emil';
+"""
+
+
+
+
+
+AND
+
+The filter() method takes the arguments as **kwargs (keyword arguments), so you can filter on more than one field by separating them by a comma.
+"""
+mydata = Member.objects.filter(lastname='Refsnes', id=2).values()
+
+
+# In SQL, the above statement would be written like this:
+# SELECT * FROM members WHERE lastname = 'Refsnes' AND id = 2;
+"""
+
+
+
+
+
+OR
+
+To return records where firstname is Emil or firstname is Tobias (meaning: returning records that matches either query, not necessarily both) is not as easy as the AND example above.
+
+We can use multiple filter() methods, separated by a pipe | character. The results will merge into one model.
+"""
+mydata = Member.objects.filter(firstname='Emil').values() | Member.objects.filter(firstname='Tobias').values()
+
+SELECT * FROM members WHERE firstname = 'Emil' OR firstname = 'Tobias';
+"""
+
+
+
+
+
+Field Lookups
+
+Django has its own way of specifying SQL statements and WHERE clauses.
+
+To make specific where clauses in Django, use "Field lookups".
+
+Field lookups are keywords that represents specific SQL keywords.
+"""
+.filter(firstname__startswith='L');
+
+WHERE firstname LIKE 'L%'
+
+"""
+  
+  
+How to add a class name to django form instance
+'username': forms.TextInput(attrs = {"class" : 'textbox'}),
+  
+How to make password input not visible
+password = forms.CharField(widget=forms.PasswordInput())
+
+if Exception Value: no such table: base_signupmodel
+make sure to make migrations
+
+To add attributes to django modelforms
+class YourModelForm(forms.ModelForm):
+    class Meta:
+        model = YourModel
+        fields = '__all__'
+        widgets = {
+            'field1': forms.TextInput(attrs={'class': 'custom-class-1', 'placeholder': 'Field 1'}),
+            'field2': forms.TextInput(attrs={'class': 'custom-class-2', 'maxlength': '50'}),
+            'field3': forms.Textarea(attrs={'class': 'custom-class-3', 'rows': '4'}),
+        }
+        
+				OR
+class SignupForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
+    class Meta:
+        model = SignupModel
+        fields = '__all__'
+        widgets = {
+            'password' : forms.PasswordInput(attrs = {'class': 'password'})
+        }
+        
+        
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

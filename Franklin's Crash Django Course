@@ -1,0 +1,128 @@
+Starting A New Django Project
+
+create a folder(Bank)
+install a virtual environment("pip install virtualenv")
+assign a name to the virtual environment for example-venv ("virtualenv venv")
+activate the virtual environment - for windows ("scripts\activate\venv)
+				  - for linux ("source venv/bin/activate")
+install django("pip install django")
+to see all django command("django-admin")
+create or start a project for example-studybud ("django-admin startproject studybud")
+test to see if you've been sucessful all this while - for windows ("python manage.py runserver")
+						      - for linux ("python3 manage.py runserver")
+put in your browsers url address ("http://127.0.0.1:8000/")
+
+open your folder(stuybud) directory in your code editor preferrably visual studio code
+create an app for  example-base  - for windows ("python manage.py startapp base")
+		    		     - for linux ("python3 manage.py startapp base")
+go to your newly created app(base), locate your views.py file
+make an import ("from django.http import HttpResponse")
+still in the views.py file create a function and pass in an argument of request ("
+def myFunction(request):
+    return HttpResponse("My First Django Page")    
+")
+go to your newly created app(base), create a new file in the app directory called ("urls.py")
+in the newly created file(urls.py), type in ("
+from django.urls import path
+from . import views
+")
+still in urls.py file, create a list and assign it to a variable name called urlpatterns and put in the path to your views function ("
+urlpatterns = [
+    path('studybud/', views.myFunction, name = 'myFunction')
+]
+")
+now go to your project's folder(studybud), locate the urls.py file there and add include to our imports there ("
+from django.urls import path, include")
+add a new path to the urlpatterns dict. ("path('', include('base.urls')),") 
+
+
+refresh your browser and you should see ("My First Django Page") displayed on your screen
+
+
+create a folder in your app(base) called ("templates")
+then create a folder in the templates folder called ("base")
+create an html file and call it anything -for example(index.html)
+make any design of your choice
+go to your project(studybud), go your "settings.py" file, locate "INSTALLED_APPS"
+add the name of your app in quotes ("
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'base',
+]
+")
+
+OR
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'base.apps.BaseConfig',
+]
+
+OR
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR / 'templates'
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
+go to your views.py in your app 
+you can choose to create a new function or use the initially created function
+remove the ("return HttpResponse("My First Django Page")")
+and replace with return render(HttpResponse, 'myfirst.html') -----("
+def myFunction(request):
+    return render(HttpResponse, 'myfirst.html')
+")
+
+OR
+
+go to your views.py in your app 
+you can choose to create a new function or use the initially created function
+import loader from django.template ("from django.template import loader")
+migrate - for windows ("python manage.py migrate")
+	- for linux ("python3 manage.py migrate")
+remove the ("return HttpResponse("My First Django Page")")
+and replace with ("
+def myFunction(request):
+    template = loader.get_template('myfirst.html')
+    return HttpResponse(template.render())
+")
+
+
+then refresh your browser and you should see your html designs displayed
+
+
+
+Creating And Linking Static Files
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR / 'static')
+]
+
+
+

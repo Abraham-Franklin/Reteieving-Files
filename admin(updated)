@@ -1,0 +1,27 @@
+from django.contrib import admin
+from .models import UserProfile, Post, Category, Like
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'bio')
+    list_filter = ('user',)
+    search_fields = ('user__username',)
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'created_at', 'updated_at')
+    list_filter = ('author', 'categories')
+    search_fields = ('title', 'content', 'author__user__username')
+    prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ('name',)
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'post', 'created_at')
+    list_filter = ('user', 'post')
+    search_fields = ('user__user__username', 'post__title')
+
